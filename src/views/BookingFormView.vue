@@ -2,33 +2,35 @@
     <div class="container">
         <form action="POST">
             <div class="kiri">
-                <div class="wrapper">
+                <div class="form-wrapper">
                     <div>
-                        <label for="">Nama Lengkap</label>
+                        <label for="">NAMA LENGKAP</label>
                         <input type="text" name="" id="">
                     </div>
                     <div>
-                        <label for="">Nomor Telepon</label>
+                        <label for="">NOMOR TELEPON</label>
                         <input type="text" name="" id="">
                     </div>
                     <div>
-                        <label for="">Nomor Kerabat/Orang Tua</label>
+                        <label for="">NOMOR KERABAT/ORANG TUA</label>
                         <input type="text" name="" id="">
                     </div>
                     <div>
-                        <label for="">Tanggal Masuk</label>
-                        <input type="date" name="" id="">
+                        <div>
+                            <label for="">TANGGAL MASUK</label>
+                            <input type="date" name="" id="">
+                        </div>
+                        <div>
+                            <label for="">DURASI</label>
+                            <select name="durations" id="durations">
+                                <option value="30">1 Bulan</option>
+                                <option value="365">1 Tahun</option>
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                        <label for="">Durasi</label>
-                        <select name="durations" id="durations">
-                            <option value="30">1 Bulan</option>
-                            <option value="365">1 Tahun</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for=""><b>Unggah Foto KTP</b></label>
-                        <input type="file" name="" id="">
+                    <div style="border: none;">
+                        <label for=""><b>UNGGAH FOTO KTP</b></label>
+                        <input type="file" name="" id="" style="border: none;">
                     </div>
                 </div>
             </div>
@@ -49,8 +51,20 @@
     padding: 20px 20px;
 
 }
-.wrapper{
+.form-wrapper{
     border: 1px solid black;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.325);
+}
+.form-wrapper > div{
+    display: flex;
+    padding:10px 10px;
+}
+.form-wrapper > div > div{
+    display: flex;
+}
+.form-wrapper input{
+    width: 350px;
 }
 .kanan{
     width: 50%;
