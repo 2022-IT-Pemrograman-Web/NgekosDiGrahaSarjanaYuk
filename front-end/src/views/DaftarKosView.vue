@@ -12,54 +12,37 @@
             <div id="contact">
                 <div class="col1">
                     <div><font-awesome-icon icon="fa-solid fa-location-dot" size="2x"/><div>Jalan Bumi Marina Emas Selatan E79</div></div>
-                    <div><font-awesome-icon icon="fa-brands fa-whatsapp" size="2x"/><div>+6282235012819</div></div>
+                    <div><font-awesome-icon icon="fa-brands fa-whatsapp" size="2x"/><div><a href="https://api.whatsapp.com/send?phone=+6282235012819&text=Saya%20ingin%20memesan%20kamar%20di%20Graha%20Sarjana%20Kost">+6282235012819</a></div></div>
                     <div><font-awesome-icon icon="fa-brands fa-facebook" size="2x"/><div>GrahaSarjanaSurabaya</div></div>
                 </div>
             </div>
         </div>
         <div class="rooms-container">
-            <div class="room">
-                <div id="picture"><img src="../assets/kamar/kamar1.jpg" alt=""></div>
+            <div class="room" v-for="room in rooms" :key="room.id">
+                <div id="picture"><img src="../assets/kamar.jpg" alt=""></div>
                 <div class="room_details">
-                    <div style="font-size: 18px; font-weight:550;">Kamar 130</div>
+                    <div style="font-size: 18px; font-weight:550;">Kamar {{ room.nomor }}</div>
                     <div class="fasilitas">
                         <div class="col1">
-                            <div><font-awesome-icon icon="fa-solid fa-maximize" /><div>Ukuran 3 x 4 m.persegi</div></div>
-                            <div><font-awesome-icon icon="fa-solid fa-shower" /><div>Kamar Mandi Dalam</div></div>
-                            <div><font-awesome-icon icon="fa-solid fa-toilet" /><div>Kloset Duduk</div></div>
-                            <div><font-awesome-icon icon="fa-solid fa-bed" /><div>Kasur Single</div></div>
+                            <div><font-awesome-icon icon="fa-solid fa-maximize" /><div>Ukuran {{ room.fasilitas[0] }}</div></div>
+                            <div><font-awesome-icon icon="fa-solid fa-shower" /><div>Kamar Mandi {{ room.fasilitas[1] }}</div></div>
+                            <div><font-awesome-icon icon="fa-solid fa-toilet" /><div>WC {{ room.fasilitas[2] }}</div></div>
+                            <div><font-awesome-icon icon="fa-solid fa-bed" /><div>Kasur {{ room.fasilitas[3] }}</div></div>
                         </div>
                         <div class="col1">
                             <div><font-awesome-icon icon="fa-solid fa-boxes-packing" /><div>Lemari</div></div>
-                            <div><font-awesome-icon icon="fa-solid fa-bolt" /><div>Listrik Token</div></div>
+                            <div><font-awesome-icon icon="fa-solid fa-bolt" /><div>{{ room.fasilitas[4]}}</div></div>
 
                         </div>
                     </div>
                 </div>
                 <div class="price-container">
-                    <div style=" margin: 0;
-                    position: relative;
+                    <div style=" margin: 0;position: relative;
                     top: 50%;
                     -ms-transform: translateY(-50%);
                     transform: translateY(-50%);">
-                        <div id="price">Rp 1.300.000/bulan</div>
-                        <button class="green">BOOK</button>
-                    </div>
-                </div>
-            </div>
-            <div class="room">
-                <div id="picture">INI GAMBAR</div>
-                <div class="room_details">
-                    Detail Kamar
-                </div>
-                <div class="price-container">
-                    <div style=" margin: 0;
-                    position: relative;
-                    top: 50%;
-                    -ms-transform: translateY(-50%);
-                    transform: translateY(-50%);">
-                        <div id="price">Rp 1.300.000 /bulan</div>
-                        <button class="green">BOOK</button>
+                        <div id="price">Rp {{toPrice(room.harga)}}/bulan</div>
+                        <router-link :to="`/booking/${room.id}`" style="text-decoration: none;"><button class="green">BOOK</button></router-link>
                     </div>
                 </div>
             </div>
@@ -69,6 +52,35 @@
 </template>
 
 <script>
+import axios from 'axios'
+    export default{
+        data (){
+            return{
+                rooms:[]
+            }
+        },
+        methods:{
+            getRooms (){
+                axios.get('http://localhost:1337/getAllKamar').then(res => {
+                    this.rooms = res.data
+                    console.log(this.rooms)
+                }).catch(err => {
+                    console.log(err)
+                })
+            },
+            toPrice(price) {
+                var new_price = price.toString()
+                new_price = new_price.split('')
+                new_price.splice(new_price.length-3*1,0,'.')
+                new_price.splice(new_price.length-1-3*2,0,'.')
+                console.log(new_price)
+                return new_price.join('')
+            }
+        },
+        mounted(){
+            this.getRooms()
+        }
+    }
 
 </script>
 

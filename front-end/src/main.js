@@ -14,5 +14,4 @@ import { faWhatsapp, faFacebook } from '@fortawesome/free-brands-svg-icons'
 library.add(faUserSecret, faMaximize, faShower, faToilet, faBed, faBoxesPacking, faBolt, faLocationDot, faWhatsapp, faFacebook )
 
 
-
 createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(router).mount('#app')
